@@ -1,5 +1,8 @@
 package dev.lucasnlm.antimine.common.level.data
 
+import androidx.annotation.Keep
+
+@Keep
 enum class Mark {
     None,
     Flag,

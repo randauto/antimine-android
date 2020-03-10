@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import dev.lucasnlm.antimine.common.level.data.Area
 import dev.lucasnlm.antimine.common.level.data.LevelSetup
-import dev.lucasnlm.antimine.common.level.database.converters.FieldConverter
+import dev.lucasnlm.antimine.common.level.database.converters.AreaConverter
 import dev.lucasnlm.antimine.common.level.database.converters.SaveStatusConverter
 
 @Entity
@@ -30,7 +30,7 @@ data class Save(
     @ColumnInfo(name = "status")
     val status: SaveStatus,
 
-    @TypeConverters(FieldConverter::class)
+    @TypeConverters(AreaConverter::class)
     @ColumnInfo(name = "field")
     val field: List<Area>
 )

@@ -3,7 +3,7 @@ package dev.lucasnlm.antimine.common.level.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import dev.lucasnlm.antimine.common.level.database.converters.FieldConverter
+import dev.lucasnlm.antimine.common.level.database.converters.AreaConverter
 import dev.lucasnlm.antimine.common.level.database.converters.LevelSetupConverter
 import dev.lucasnlm.antimine.common.level.database.converters.SaveStatusConverter
 import dev.lucasnlm.antimine.common.level.database.dao.SaveDao
@@ -15,7 +15,7 @@ import dev.lucasnlm.antimine.common.level.database.data.Save
     ], version = 1, exportSchema = false
 )
 @TypeConverters(
-    FieldConverter::class,
+    AreaConverter::class,
     SaveStatusConverter::class,
     LevelSetupConverter::class
 )
