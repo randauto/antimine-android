@@ -72,7 +72,14 @@ open class LevelFragment : DaggerFragment() {
         bidirectionalScroll.setTarget(recyclerGrid)
 
         GlobalScope.launch {
-            val levelSetup = viewModel.onCreate(handleNewGameDeeplink())
+            val loadGameUid = checkLoadGameDeepLink()
+            val newGameDeepLink = checkNewGameDeepLink()
+
+            val levelSetup = when {
+                loadGameUid != null -> viewModel.loadGame(loadGameUid)
+                newGameDeepLink != null -> viewModel.startNewGame(newGameDeepLink)
+                else -> viewModel.loadLastGame()
+            }
 
             val width = levelSetup.width
 
@@ -120,25 +127,36 @@ open class LevelFragment : DaggerFragment() {
         }
     }
 
-    private fun handleNewGameDeeplink(): Difficulty? {
-        var result: Difficulty? = null
-
-        activity?.intent?.data?.let { uri ->
-            if (uri.scheme == DEFAULT_SCHEME) {
-                result = when (uri.schemeSpecificPart.removePrefix("//new-game/")) {
-                    "beginner" -> Difficulty.Beginner
-                    "intermediate" -> Difficulty.Intermediate
-                    "expert" -> Difficulty.Expert
-                    "standard" -> Difficulty.Standard
-                    else -> null
-                }
+    private fun checkNewGameDeepLink(): Difficulty? = activity?.intent?.data?.let { uri ->
+        if (uri.scheme == DEFAULT_SCHEME) {
+            when (uri.schemeSpecificPart.removePrefix(DEEP_LINK_NEW_GAME_HOST)) {
+                DEEP_LINK_BEGINNER -> Difficulty.Beginner
+                DEEP_LINK_INTERMEDIATE -> Difficulty.Intermediate
+                DEEP_LINK_EXPERT -> Difficulty.Expert
+                DEEP_LINK_STANDARD -> Difficulty.Standard
+                else -> null
             }
+        } else {
+            null
         }
+    }
 
-        return result
+    private fun checkLoadGameDeepLink(): Int? = activity?.intent?.data?.let { uri ->
+        if (uri.scheme == DEFAULT_SCHEME) {
+            uri.schemeSpecificPart.removePrefix(DEEP_LINK_LOAD_GAME_HOST).toIntOrNull()
+        } else {
+            null
+        }
     }
 
     companion object {
         const val DEFAULT_SCHEME = "antimine"
+
+        const val DEEP_LINK_NEW_GAME_HOST = "//new-game/"
+        const val DEEP_LINK_LOAD_GAME_HOST = "//load-game/"
+        const val DEEP_LINK_BEGINNER = "beginner"
+        const val DEEP_LINK_INTERMEDIATE = "intermediate"
+        const val DEEP_LINK_EXPERT = "expert"
+        const val DEEP_LINK_STANDARD = "standard"
     }
 }
