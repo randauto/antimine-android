@@ -92,7 +92,7 @@ open class LevelFragment : DaggerFragment() {
                     bidirectionalScroll.scrollBy(recyclerGrid.width / 4, 0)
                     recyclerGrid.animate().apply {
                         alpha(1.0f)
-                        duration = 1000
+                        duration = 750L
                     }.start()
                 }
             }
