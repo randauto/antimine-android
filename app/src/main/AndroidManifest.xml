@@ -12,10 +12,8 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <uses-permission
-        android:name="android.permission.VIBRATE" />
-    <uses-permission
-        android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -27,7 +25,7 @@
     <dist:module dist:instant="true" />
 
     <application
-        android:name="dev.lucasnlm.antimine.MainApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:allowClearUserData="true"
         android:fullBackupContent="@xml/backup_rules"
@@ -40,13 +38,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="lollipop">
-
+        <activity android:name=".game.Game_2048_Activity"></activity>
         <activity
-            android:name="dev.lucasnlm.antimine.splash.SplashActivity"
+            android:name=".splash.SplashActivity"
             android:theme="@style/Theme.Splash">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -54,15 +52,13 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-
         <activity
-            android:name="dev.lucasnlm.antimine.GameActivity"
-            android:saveEnabled="false"
+            android:name=".GameActivity"
+            android:configChanges="screenSize|orientation"
             android:icon="@mipmap/ic_launcher"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:configChanges="screenSize|orientation"
+            android:saveEnabled="false"
             android:theme="@style/AppTheme.NoActionBar">
-
             <tools:validation testUrl="https://www.lucasnlm.dev/antimine" />
             <tools:validation testUrl="http://www.lucasnlm.dev/antimine" />
             <tools:validation testUrl="https://www.lucasnlm.dev/" />
@@ -82,12 +78,10 @@
                     android:host="new-game"
                     android:scheme="antimine" />
             </intent-filter>
-
             <intent-filter
-                android:order="1"
                 android:autoVerify="true"
+                android:order="1"
                 tools:targetApi="m">
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -95,61 +89,51 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-
-                <data
-                    android:host="www.lucasnlm.dev" />
-
+                <data android:host="www.lucasnlm.dev" />
                 <data
                     android:host="www.lucasnlm.dev"
                     android:path="/" />
-
                 <data
                     android:host="www.lucasnlm.dev"
                     android:path="/antimine" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="dev.lucasnlm.antimine.TvGameActivity"
+            android:name=".TvGameActivity"
             android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN"/>-->
-            <!--                <category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--            </intent-filter>-->
 
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
+
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LEANBACK_LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-
         <activity
-            android:name="dev.lucasnlm.antimine.about.views.thirds.ThirdPartiesFragment"
+            android:name=".about.views.thirds.ThirdPartiesFragment"
             android:label="@string/licenses"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="dev.lucasnlm.antimine.about.views.translators.TranslatorsFragment"
+            android:name=".about.views.translators.TranslatorsFragment"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="dev.lucasnlm.antimine.about.TextActivity"
+            android:name=".about.TextActivity"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="dev.lucasnlm.antimine.about.AboutActivity"
+            android:name=".about.AboutActivity"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="dev.lucasnlm.antimine.preferences.PreferencesActivity"
+            android:name=".preferences.PreferencesActivity"
             android:label="@string/settings"
-            android:parentActivityName="dev.lucasnlm.antimine.GameActivity">
-
+            android:parentActivityName=".GameActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dev.lucasnlm.antimine.GameActivity" />
-
         </activity>
 
         <provider
@@ -157,10 +141,10 @@
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+
 </manifest>
